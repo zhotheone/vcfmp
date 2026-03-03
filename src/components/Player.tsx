@@ -165,6 +165,11 @@ export function Player() {
           className="relative hidden md:flex items-center h-full flex-shrink-0"
           onMouseEnter={() => setShowVolume(true)}
           onMouseLeave={() => setShowVolume(false)}
+          onWheel={(e) => {
+            const delta = e.deltaY > 0 ? -0.01 : 0.01;
+            const newVolume = Math.max(0, Math.min(1, volume + delta));
+            setVolume(Number(newVolume.toFixed(2)));
+          }}
         >
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -182,23 +187,28 @@ export function Player() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.9 }}
               transition={{ type: 'tween', ease: [0.4, 0, 0.2, 1], duration: 0.2 }}
-              className="absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-10 h-32 rounded-2xl shadow-xl flex items-center justify-center pb-2 z-50 transition-colors duration-200"
+              className="absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-10 h-36 rounded-2xl shadow-xl flex flex-col items-center py-3 z-50 transition-colors duration-200"
               style={{ backgroundColor: theme.highlightMed }}
             >
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                value={volume}
-                onChange={handleVolume}
-                className="absolute w-24 h-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 opacity-0 cursor-pointer z-10"
-              />
-              <div className="absolute w-2 h-24 bg-zinc-600 rounded-full bottom-4 pointer-events-none overflow-hidden">
-                <div
-                  className="absolute bottom-0 w-full rounded-full transition-colors duration-200 ease-in-out"
-                  style={{ height: `${volume * 100}%`, backgroundColor: accentColor }}
+              <div className="text-[10px] font-bold text-zinc-300 pointer-events-none mb-1">
+                {Math.round(volume * 100)}
+              </div>
+              <div className="relative w-full h-24 flex-1">
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolume}
+                  className="absolute w-24 h-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 opacity-0 cursor-pointer z-10"
                 />
+                <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-2 h-24 bg-zinc-600 rounded-full pointer-events-none overflow-hidden">
+                  <div
+                    className="absolute bottom-0 w-full rounded-full transition-colors duration-200 ease-in-out"
+                    style={{ height: `${volume * 100}%`, backgroundColor: accentColor }}
+                  />
+                </div>
               </div>
             </motion.div>
           )}
