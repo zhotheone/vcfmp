@@ -178,7 +178,7 @@ export function SettingsPopup({ isOpen, onClose }: SettingsPopupProps) {
                     </section>
 
                     <p className="text-xs text-zinc-500 text-center">
-                        VCFMP v1.0.0 • Local Music Player
+                        VCFMP v1.3.0 • Build {(window as any).__COMMIT_HASH__ || 'dev'}
                     </p>
                 </div>
             </motion.div>
