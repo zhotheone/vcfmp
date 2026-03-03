@@ -1,0 +1,5 @@
+{
+  "name": "Localify",
+  "description": "A Spotify clone to listen to your local FLAC and audio library.",
+  "requestFramePermissions": []
+}
