@@ -9,10 +9,9 @@ const commitHash = execSync('git rev-parse --short HEAD').toString().trim();
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: '/',
+    base: '/vcfmp/',
     plugins: [react(), tailwindcss()],
     define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       '__COMMIT_HASH__': JSON.stringify(commitHash),
     },
     resolve: {
